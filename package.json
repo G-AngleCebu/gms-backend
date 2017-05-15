@@ -1,0 +1,17 @@
+{
+  "name": "gms",
+  "version": "1.0.0",
+  "description": "gms application using mongoose (restful api)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "*",
+    "body-parser": "*",
+    "mongoose": "*",
+    "mongoose-auto-increment": "*"
+  },
+  "author": "eunice ruiz",
+  "license": "ISC"
+} 
