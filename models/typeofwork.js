@@ -29,7 +29,7 @@ module.exports.getTypesOfWork = function(callback, limit){
 }
 
 // Get Type of Work by ID
-module.exports.getTypOfWorkById = function(id, callback){
+module.exports.getTypeOfWorkById = function(id, callback){
     TypeOfWork.findById(id, callback);
 }
 

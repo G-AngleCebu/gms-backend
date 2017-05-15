@@ -12,7 +12,7 @@ router.get('/', function(req, res){
         if(err){
             throw err;
         }
-        res.json(currentStatus);
+        res.json({"data":currentStatus});
     });
 })
 
@@ -21,7 +21,7 @@ router.get('/:_id', function(req, res){
         if(err){
             throw err;
         }
-        res.json(currentStatus);
+        res.json({"data":currentStatus});
     });
 })
 
@@ -31,7 +31,7 @@ router.post('/', function(req, res){
         if(err){
             throw err;
         }
-        res.json(cur);
+        res.json({"data":cur});
     });
 })
 
@@ -42,7 +42,7 @@ router.put('/:_id', function(req, res){
         if(err){
             throw err;
         }
-        res.json(cur);
+        res.json({"data": cur});
     });
 })
 

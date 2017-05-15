@@ -9,7 +9,7 @@ router.get('/', function(req, res){
         if(err){
             throw err;
         }
-        res.json(categories);
+        res.json({"data":categories});
     });
 });
 
@@ -18,7 +18,7 @@ router.get('/:_id', function(req, res){
             if(err){
                 throw err;
             }
-            res.json(category);
+            res.json({"data": category});
     });
 });
 
@@ -28,7 +28,7 @@ router.post('/', function(req, res){
         if(err){
             throw err;
         }
-        res.json(category);
+        res.json({"data": category});
     });
 });
 
@@ -40,7 +40,7 @@ router.put('/:_id', function(req, res){
         if(err){
             throw err;
         }
-        res.json(category);
+        res.json({"data": category});
     });
 });
 

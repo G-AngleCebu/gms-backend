@@ -9,16 +9,16 @@ router.get('/', function(req,res){
         if(err){
             throw err;
         }
-        res.json(assignments);
+        res.json({"data": assignments});
     })
 })
 
 router.get('/:_id', function(req, res){
-    Assignment.getAssignmentById(req.params._id, function(err, branch){
+    Assignment.getAssignmentById(req.params._id, function(err, assignment){
         if(err){
             throw err;
         }
-        res.json(branch);
+        res.json({"data": assignment});
     });
 })
 

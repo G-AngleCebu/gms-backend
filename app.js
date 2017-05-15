@@ -21,7 +21,7 @@ Branch = require('./models/branch');
 Category = require('./models/category');
 Category_tag = require('./models/category_tag');
 Background = require('./models/background');
-// TypeOfWork = require('./models/typeofwork');
+TypeOfWork = require('./models/typeofwork');
 TypeOfOutsourced = require('./models/typeofoutsourced');
 Assignment = require('./models/assignment');
 CurrentStatus = require('./models/currentstatus');
@@ -39,7 +39,7 @@ var section_router = require('./routes/section_router');
 var assignment_router = require('./routes/assignment_router');
 var currentstatus_router = require('./routes/currentstatus_router');
 var background_router = require('./routes/background_router');
-// var typesofwork_router = require('./routes/typesofwork_router');
+var typesofwork_router = require('./routes/typesofwork_router');
 var typesofoutsourced_router = require('./routes/typesofoutsourced_router');
 
 
@@ -54,8 +54,7 @@ app.use('/api/categorytags', categorytag_router);
 app.use('/api/assignments', assignment_router);
 app.use('/api/backgrounds', background_router);
 app.use('/api/currentstatus', currentstatus_router);
-// app.use('/api/backgrounds', background_router);
-// app.use('/api/typesofwork', typesofwork_router);
+app.use('/api/typesofwork', typesofwork_router);
 app.use('/api/typesofoutsourced', typesofoutsourced_router);
 
 var db = mongoose.connection;

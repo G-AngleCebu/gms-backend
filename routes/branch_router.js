@@ -19,7 +19,7 @@ router.get('/:_id', function(req, res){
             if(err){
                 throw err;
             }
-            res.json(branch);
+            res.json({"data": branch});
     });
 });
 
@@ -29,7 +29,7 @@ router.post('/', function(req, res){
         if(err){
             throw err;
         }
-        res.json(branch);
+        res.json({"data": branch});
     });
 });
 
@@ -41,7 +41,7 @@ router.put('/:_id', function(req, res){
         if(err){
             throw err;
         }
-        res.json(branch);
+        res.json({"data": branch});
     });
 });
 

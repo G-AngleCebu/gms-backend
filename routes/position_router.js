@@ -28,7 +28,7 @@ router.get('/:_id', function(req, res){
             if(err){
                 throw err;
             }
-            res.json(position);
+            res.json({"data":position});
     });
 });
 
@@ -40,7 +40,7 @@ router.put('/:_id', function(req, res){
         if(err){
             throw err;
         }
-        res.json(position);
+        res.json({"data":position});
     });
 });
 

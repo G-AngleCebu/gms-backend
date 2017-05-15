@@ -32,7 +32,7 @@ router.post('/', function(req, res){
         if(err){
             throw err;
         }
-        res.json(staff);
+        res.json({"data":staff});
     });
 })
 
@@ -44,7 +44,7 @@ router.put('/:_id', function(req, res){
         if(err){
             throw err;
         }
-        res.json(staff);
+        res.json({"data":staff});
     });
 })
 

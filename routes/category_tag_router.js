@@ -8,7 +8,7 @@ router.get('/', function(req, res){
             if(err){
                 throw err;
             }
-            res.json(category_tags);
+            res.json({"data": category_tags});
     });
 });
 
@@ -17,7 +17,7 @@ router.get('/:_id', function(req, res){
             if(err){
                 throw err;
             }
-            res.json(category_tag);
+            res.json({"data":category_tag});
     });
 });
 
@@ -27,7 +27,7 @@ router.post('/', function(req, res){
         if(err){
             throw err;
         }
-        res.json(category_tag);
+        res.json({"data":category_tag});
     });
 });
 
@@ -39,7 +39,7 @@ router.put('/:_id', function(req, res){
         if(err){
             throw err;
         }
-        res.json(category_tag);
+        res.json({"data" : category_tag});
     });
 });
 

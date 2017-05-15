@@ -1,10 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res){
-    res.send('API HOME PAGE');
-});
-
 // ROUTER FOR SECTIONS
 
 router.get('/', function(req, res){
@@ -21,7 +17,7 @@ router.get('/:_id', function(req, res){
         if(err){
             throw err;
         }
-        res.json(section);
+        res.json({"data":section});
     });
 })
 
@@ -31,7 +27,7 @@ router.post('/', function(req, res){
         if(err){
             throw err;
         }
-        res.json(section);
+        res.json({"data": section});
     });
     
 })

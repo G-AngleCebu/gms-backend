@@ -28,7 +28,7 @@ router.post('/', function(req, res){
         if(err){
             throw err;
         }
-        res.json(department);
+        res.json({"data":department});
     });
 })
 
@@ -39,7 +39,7 @@ router.put('/:_id', function(req, res){
         if(err){
             throw err;
         }
-        res.json(department);
+        res.json({"data":department});
     });
 })
 
