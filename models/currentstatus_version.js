@@ -16,6 +16,10 @@ var current_status_version = mongoose.Schema({
     staff_maker: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Staff'
+    },
+    dis: {
+        type: Boolean,
+        default: true
     }
 });
 

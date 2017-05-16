@@ -13,6 +13,10 @@ var position_version_schema = mongoose.Schema({
     staff_maker: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Staff'
+    },
+    dis: {
+        type: Boolean,
+        default: true
     }
 });
 

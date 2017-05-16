@@ -115,7 +115,7 @@ var Staff = module.exports = mongoose.model('Staff', staffSchema);
 
 // Get Staffs
 module.exports.getStaffs = function(callback, limit){
-    var populateQuery = [{path:'sections', model: 'Section'}, {path: 'departments', model: 'Department'}, {path: 'branches', model: 'Branch'}, {path: 'positions', model: 'Position'}];
+    var populateQuery = [{path:'sections', model: 'Section'}, {path: 'departments', model: 'Department'}, {path: 'branches', model: 'Branch'}, {path: 'positions', model: 'Position'}, {path: 'versions.staff_maker', model: 'Staff', select: 'name'}];
     
     Staff.find({}).populate(populateQuery).exec(callback);
 }
@@ -158,8 +158,7 @@ module.exports.addStaff = function(staff, callback){
         sections: staff.sections,
         time_changed: Date.now(),
         staff_maker: {
-             _id: '590ad89e019f941b14e589d9',
-            name: 'eunice'
+             _id: '591a667ec9540eb1995be1e6',
         }
     });
     var newStaff = new Staff({
@@ -196,7 +195,6 @@ module.exports.addStaff = function(staff, callback){
     var populateQuery = [{path:'sections', model: 'Section'}, {path: 'departments', model: 'Department'}, {path: 'branches', model: 'Branch'}, {path: 'positions', model: 'Position'}];
     mongoose.model('Staff').populate(newStaff, populateQuery, function(err, staff){
         console.log(staff);
-        // staff.save(callback);
     })
     newStaff.save(callback);
 
@@ -206,18 +204,58 @@ module.exports.addStaff = function(staff, callback){
 // Update Staff
 module.exports.updateStaff = function(id, newStaff, options, callback){
     var query = {_id: id};
-    var v = {
+    var v = new staff_version({
         name: newStaff.name,
         birth: newStaff.birth,
+        gender: newStaff.gender,
+        blood: newStaff.gender,
+        post_1: newStaff.post_1,
+        address_1: newStaff.address_1,
+        post_2: newStaff.post_2,
+        address_2: newStaff.address_2,
+        phone_home: newStaff.phone_home,
+        phone_mobile: newStaff.phone_mobile,
+        phone_emergency: newStaff.phone_emergency,
+        email_mobile: newStaff.email_mobile,
+        email_pc: newStaff.email_pc,
+        commuting_route: newStaff.commuting_route,
+        commuting_time: newStaff.commuting_time,
+        transportation_cost_one_time: newStaff.transportation_cost_one_time,
+        transportation_cost_1m: newStaff.transportation_cost_1m,
+        transportation_cost_6m: newStaff.transportation_cost_6m,
+        joined_date: newStaff.joined_date,
+        leave_date: newStaff.leave_date,
+        permit_level: newStaff.permit_level,
         password: newStaff.password,
+        hourly_wage: newStaff.hourly_wage,
+        profile_picture: newStaff.profile_picture,
+        sections: newStaff.sections,
+        branches: newStaff.branches,
+        positions: newStaff.positions,
+        departments: newStaff.departments,
         time_changed: Date.now(),
         staff_maker: {
-            _id: '590ad89e019f941b14e589d9',
-            name: 'eunice'
+            _id: '591a667ec9540eb1995be1e6',
         }
-    }
-    var updateValue = {$set: newStaff, $push:{versions: v}};
-    console.log(updateValue);
-    Staff.update(query, updateValue, options, callback);
+    });
+
+    var populateQuery = [{path:'sections', model: 'Section'}, {path: 'departments', model: 'Department'}, {path: 'branches', model: 'Branch'}, {path: 'positions', model: 'Position'}];
+
+    mongoose.model('Staff').populate(newStaff, populateQuery, function(err, staff){
+        console.log(staff);
+        var update = {$set: newStaff, $push: {versions: v}};
+        Staff.update(query, update, options, callback);
+    });
+
 }
 
+module.exports.deleteStaff = function(id, callback){
+    var query = {_id: id};
+    var staff = new staff_version({
+        dis: false,
+        time_changed: Date.now(),
+        staff_maker: {
+            _id: '591a667ec9540eb1995be1e6'
+        }
+    });
+}

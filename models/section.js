@@ -60,7 +60,6 @@ module.exports.updateSection = function(id, newSection, options, callback){
     var v = new section_version({
         name: newSection.name,
         remark: newSection.remark,
-        staff_members: newSection.staff_members,
         time_changed: Date.now(),
         staff_maker: {
             _id: '590ad89e019f941b14e589d9',

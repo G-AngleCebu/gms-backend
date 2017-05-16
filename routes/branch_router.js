@@ -45,4 +45,13 @@ router.put('/:_id', function(req, res){
     });
 });
 
+router.delete('/:_id', function(req, res){
+    var id = req.params._id;
+    
+    Branch.deleteBranch(id, function(err){
+        if(err)
+            throw err;
+        res.json({"data": "success"});
+    });
+})
 module.exports = router;

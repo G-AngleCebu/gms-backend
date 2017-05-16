@@ -66,3 +66,9 @@ module.exports.updateBranch = function(id, newBranch, options, callback){
     var update = {$set: newBranch, $push: {versions: v}};
     Branch.update(query, update, options, callback);
 }
+
+module.exports.deleteBranch = function(id, callback){
+    var query = {_id: id};
+
+    Branch.find(query).remove(callback);
+}
