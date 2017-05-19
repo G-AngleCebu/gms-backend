@@ -26,7 +26,7 @@ var Section = module.exports = mongoose.model('Section', sectionSchema);
 
 // Get Sections
 module.exports.getSections = function(callback, limit){
-    Section.find(callback).limit(limit);
+    Section.find({dis: true}, callback).limit(limit);
 }
 
 // Get Section by ID
@@ -68,4 +68,17 @@ module.exports.updateSection = function(id, newSection, options, callback){
     })
     var update = {$set: newSection, $push: {versions: v}};
     Section.update(query, update, options, callback);
+}
+
+module.exports.deleteSection = function(id, callback){
+    var query = {_id:id};
+    var v = new section_version({
+        dis: false,
+        time_changed: Date.now(),
+        staff_maker: {
+            _id: '591a667ec9540eb1995be1e6'
+        }
+    });
+    var update = {$set: {dis: false}, $push:{versions: v}};
+    Section.update(query, update, callback);
 }

@@ -4,10 +4,10 @@ var section = require('./section')
 var Branch = require('./branch');
 var Department = require('./department');
 var Position = require('./position');
-
 var staffSchema = mongoose.Schema({
     name: {
         type: String,
+        required: true
     },
     birth: {
         type: Date,
@@ -44,6 +44,7 @@ var staffSchema = mongoose.Schema({
     },
     email_pc: {
         type: String,
+        required: true
     },
     commuting_route: {
         type: String
@@ -116,8 +117,13 @@ var Staff = module.exports = mongoose.model('Staff', staffSchema);
 // Get Staffs
 module.exports.getStaffs = function(callback, limit){
     var populateQuery = [{path:'sections', model: 'Section'}, {path: 'departments', model: 'Department'}, {path: 'branches', model: 'Branch'}, {path: 'positions', model: 'Position'}, {path: 'versions.staff_maker', model: 'Staff', select: 'name'}];
+
+    Staff.find({dis: true}).populate(populateQuery).exec(callback);
+    // Staff.find({dis: true}).populate(populateQuery).exec(function(err, staffs){
+    //     callback(err, staffs);
+    // });
     
-    Staff.find({}).populate(populateQuery).exec(callback);
+    
 }
 
 // Get Staff by ID
@@ -258,4 +264,6 @@ module.exports.deleteStaff = function(id, callback){
             _id: '591a667ec9540eb1995be1e6'
         }
     });
+    var update = {$set: {dis: false}, $push: {versions: staff}};
+    Staff.update(query, update, callback);
 }

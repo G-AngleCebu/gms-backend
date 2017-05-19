@@ -48,4 +48,14 @@ router.put('/:_id', function(req, res){
     });
 })
 
+router.delete('/:_id', function(req, res){
+    var id = req.params._id;
+
+    Staff.deleteStaff(id, function(err){
+        if(err)
+            throw err;
+        res.json("Success!");
+    })
+})
+
 module.exports = router;

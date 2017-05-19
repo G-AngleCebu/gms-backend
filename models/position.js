@@ -23,7 +23,7 @@ var Position = module.exports = mongoose.model('Position', positionSchema);
 
 // Get Positions
 module.exports.getPositions = function(callback, limit){
-    Position.find(callback).limit(limit);
+    Position.find({dis: true}, callback).limit(limit);
 }
 
 // Get Position by ID
@@ -65,4 +65,17 @@ module.exports.updatePosition = function(id, newPosition, options, callback){
 
     var update = {$set: newPosition, $push: {versions: v}};
     Position.update(query, update, options, callback);
+}
+
+module.exports.deletePosition = function(id, callback){
+    var query = {_id:id};
+    var v = new position_version({
+        dis: false,
+        time_changed: Date.now(),
+        staff_maker: {
+            _id: '591a667ec9540eb1995be1e6'
+        }
+    });
+    var update = {$set: {dis: false}, $push:{versions: v}};
+    Position.update(query, update, callback);
 }

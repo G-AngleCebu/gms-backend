@@ -25,7 +25,7 @@ var TypeOfWork = module.exports = mongoose.model('TypeOfWork', typeofwork_schema
 
 // Get Types of Work
 module.exports.getTypesOfWork = function(callback, limit){
-    TypeOfWork.find(callback).limit(limit);   
+    TypeOfWork.find({dis: true}, callback).limit(limit);   
 }
 
 // Get Type of Work by ID
@@ -67,5 +67,18 @@ module.exports.updateTypeOfWork = function(id, newTypeofWork, options, callback)
     }
     var update = {$set: newTypeofWork, $push:{versions: v}};
     TypeOfWork.update(query, update, options, callback);
+}
+
+module.exports.deleteTypeOfWork = function(id, callback){
+    var query = {_id:id};
+    var v = new typeofwork_version({
+        dis: false,
+        time_changed: Date.now(),
+        staff_maker: {
+            _id: '591a667ec9540eb1995be1e6'
+        }
+    });
+    var update = {$set: {dis: false}, $push:{versions: v}};
+    TypeOfWork.update(query, update, callback);
 }
 

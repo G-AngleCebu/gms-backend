@@ -24,7 +24,7 @@ var TypeOfOutsourced = module.exports = mongoose.model('TypeOfOutsourced', outso
 
 // Get types of outsourced
 module.exports.getTypesOfOutsourced = function(callback, limit){
-    Section.find(callback).limit(limit);
+    Section.find({dis: true}, callback).limit(limit);
 }
 
 // Get Type of Outsourced by ID
@@ -66,4 +66,17 @@ module.exports.updateTypeOfOutsourced = function(id, newTypeOfOutsourced, option
     };
     var update = {$set: newTypeOfOutsourced, $push: {versions: v}};
     TypeOfOutsourced.update(query, update, options, callback);
+}
+
+module.exports.deleteTypeOfOutsourced = function(id, callback){
+    var query = {_id:id};
+    var v = new typeOfOutsourced_v({
+        dis: false,
+        time_changed: Date.now(),
+        staff_maker: {
+            _id: '591a667ec9540eb1995be1e6'
+        }
+    });
+    var update = {$set: {dis: false}, $push:{versions: v}};
+    TypeOfOutsourced.update(query, update, callback);
 }

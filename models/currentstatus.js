@@ -24,7 +24,7 @@ var CurrentStatus = module.exports = mongoose.model('CurrentStatus', current_sta
 
 // Get all Current Status
 module.exports.getCurrentStatuses = function(callback, limit){
-    CurrentStatus.find(callback).limit(limit);
+    CurrentStatus.find({dis: true}, callback).limit(limit);
 }
 
 // Get Current Status by ID
@@ -67,4 +67,17 @@ module.exports.updateCurrentStatus = function(id, newCurrentStatus, options, cal
 
     var update = {$set: newCurrentStatus, $push: {versions: v}};
     CurrentStatus.update(query, update, options, callback);
+}
+
+module.exports.deleteCurrentStatus = function(id, callback){
+    var query = {_id:id};
+    var v = new current_status_v({
+        dis: false,
+        time_changed: Date.now(),
+        staff_maker: {
+            _id: '591a667ec9540eb1995be1e6'
+        }
+    });
+    var update = {$set: {dis: false}, $push:{versions: v}};
+    CurrentStatus.update(query, update, callback);
 }

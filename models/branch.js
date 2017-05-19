@@ -24,7 +24,7 @@ var Branch = module.exports = mongoose.model('Branch', branchSchema);
 
 // Get Branches
 module.exports.getBranches = function(callBack, limit){
-    Branch.find(callBack).limit(limit);
+    Branch.find({dis: true}, callBack).limit(limit);
 }
 
 // Get Branch by ID
@@ -68,7 +68,14 @@ module.exports.updateBranch = function(id, newBranch, options, callback){
 }
 
 module.exports.deleteBranch = function(id, callback){
-    var query = {_id: id};
-
-    Branch.find(query).remove(callback);
+    var query = {_id:id};
+    var v = new branch_version({
+        dis: false,
+        time_changed: Date.now(),
+        staff_maker: {
+            _id: '591a667ec9540eb1995be1e6'
+        }
+    });
+    var update = {$set: {dis: false}, $push:{versions: v}};
+    Branch.update(query, update, callback);
 }

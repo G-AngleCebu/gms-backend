@@ -24,7 +24,7 @@ var Background = module.exports = mongoose.model('Background', background_schema
 
 // Get Backgrounds
 module.exports.getBackground = function(callback, limit){
-    Background.find(callback).limit(limit);
+    Background.find({dis: true}, callback).limit(limit);
 }
 
 // Get Background by ID
@@ -66,4 +66,17 @@ module.exports.updateBackground = function(id, newBackground, options, callback)
 
     var update = {$set: newBackground, $push: {versions: v}};
     Background.update(query, update, options, callback);
+}
+
+module.exports.deleteBackground = function(id, callback){
+    var query = {_id:id};
+    var v = new background_version({
+        dis: false,
+        time_changed: Date.now(),
+        staff_maker: {
+            _id: '591a667ec9540eb1995be1e6'
+        }
+    });
+    var update = {$set: {dis: false}, $push:{versions: v}};
+    Background.update(query, update, callback);
 }

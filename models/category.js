@@ -30,7 +30,7 @@ var Category = module.exports = mongoose.model('Category', category_schema);
 
 // Get Categories
 module.exports.getCategories = function(callback, limit){
-    Category.find(callback).limit(limit);
+    Category.find({dis: true}, callback).limit(limit);
 }
 
 // Get Category by ID
@@ -75,4 +75,17 @@ module.exports.updateCategory = function(id, newCategory, options, callback){
     };
     var update = {$set: newCategory, $push: {versions: v}};
     Category.update(query, update, options, callback);
-}                                                                                                                                                                                                                                                                                           
+}     
+
+module.exports.deleteCategory = function(id, callback){
+    var query = {_id:id};
+    var v = new category_version({
+        dis: false,
+        time_changed: Date.now(),
+        staff_maker: {
+            _id: '591a667ec9540eb1995be1e6'
+        }
+    });
+    var update = {$set: {dis: false}, $push:{versions: v}};
+    Category.update(query, update, callback);
+}                                                                                                                                                                                                                                                                                      

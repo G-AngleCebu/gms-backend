@@ -24,7 +24,7 @@ var Assignment = module.exports = mongoose.model('Assignment', assignment_schema
 
 // Get Assignments
 module.exports.getAssignments = function(callback, limit){
-    Assignment.find(callback).limit(limit);
+    Assignment.find({dis: true}, callback).limit(limit);
 }
 
 // Get Assignment by ID
@@ -66,4 +66,17 @@ module.exports.updateAssignment = function(id, newAssignment, options, callback)
 
     var update = {$set: newAssignment, $push: {versions: v}};
     Assignment.update(query, update, options, callback);
+}
+
+module.exports.deleteAssignment = function(id, callback){
+    var query = {_id:id};
+    var v = new assignment_v({
+        dis: false,
+        time_changed: Date.now(),
+        staff_maker: {
+            _id: '591a667ec9540eb1995be1e6'
+        }
+    });
+    var update = {$set: {dis: false}, $push:{versions: v}};
+    Assignment.update(query, update, callback);
 }
