@@ -116,17 +116,12 @@ var Staff = module.exports = mongoose.model('Staff', staffSchema);
 
 // Get Staffs
 module.exports.getStaffs = function(callback, limit){
-<<<<<<< HEAD
     var populateQuery = [{path:'sections', model: 'Section'}, {path: 'departments', model: 'Department'}, {path: 'branches', model: 'Branch'}, {path: 'positions', model: 'Position'}, {path: 'versions.staff_maker', model: 'Staff', select: 'name'}];
 
     Staff.find({dis: true}).populate(populateQuery).exec(callback);
     // Staff.find({dis: true}).populate(populateQuery).exec(function(err, staffs){
     //     callback(err, staffs);
     // });
-    
-=======
-    var populateQuery = [{path:'sections', model: 'Section'}, {path: 'departments', model: 'Department'}, {path: 'branches', model: 'Branch'}, {path: 'positions', model: 'Position'}];
->>>>>>> 0f92f46cd8d23637d92ea6a20a899c75cab33397
     
 }
 
