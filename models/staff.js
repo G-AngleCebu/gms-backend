@@ -71,8 +71,8 @@ var staffSchema = mongoose.Schema({
         type: Number,
     },
     password: {
-        type: Number,
-        required: true
+        type: Number
+        // required: true
     },
     hourly_wage: {
         type: Number,
@@ -118,12 +118,9 @@ var Staff = module.exports = mongoose.model('Staff', staffSchema);
 module.exports.getStaffs = function(callback, limit){
     var populateQuery = [{path:'sections', model: 'Section'}, {path: 'departments', model: 'Department'}, {path: 'branches', model: 'Branch'}, {path: 'positions', model: 'Position'}, {path: 'versions.staff_maker', model: 'Staff', select: 'name'}];
 
-    Staff.find({dis: true}).populate(populateQuery).exec(callback);
-    // Staff.find({dis: true}).populate(populateQuery).exec(function(err, staffs){
-    //     callback(err, staffs);
-    // });
-    
+    Staff.find({dis: true}).populate(populateQuery).exec(callback);    
 }
+
 
 // Get Staff by ID
 module.exports.getStaffById = function(id, callback){
@@ -161,6 +158,9 @@ module.exports.addStaff = function(staff, callback){
         hourly_wage: staff.hourly_wage,
         profile_picture: staff.profile_picture,
         sections: staff.sections,
+        departments: staff.departments,
+        positions: staff.positions,
+        branches: staff.branches,
         time_changed: Date.now(),
         staff_maker: {
              _id: '591a667ec9540eb1995be1e6',
@@ -243,11 +243,10 @@ module.exports.updateStaff = function(id, newStaff, options, callback){
             _id: '591a667ec9540eb1995be1e6',
         }
     });
-
+    console.log(v);
     var populateQuery = [{path:'sections', model: 'Section'}, {path: 'departments', model: 'Department'}, {path: 'branches', model: 'Branch'}, {path: 'positions', model: 'Position'}];
 
     mongoose.model('Staff').populate(newStaff, populateQuery, function(err, staff){
-        console.log(staff);
         var update = {$set: newStaff, $push: {versions: v}};
         Staff.update(query, update, options, callback);
     });

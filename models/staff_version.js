@@ -1,5 +1,9 @@
 var mongoose = require('mongoose');
 var Staff = require('./staff');
+var section = require('./section')
+var Branch = require('./branch');
+var Department = require('./department');
+var Position = require('./position');
 var staff_version_schema = mongoose.Schema({
     name: {
         type: String,
@@ -75,6 +79,26 @@ var staff_version_schema = mongoose.Schema({
     profile_picture: {
         type: String,
     },
+    sections: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Section',
+        required: false
+    }],
+    branches: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Branch',
+        required: false
+    }],
+    positions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Position',
+        required: false
+    }],
+    departments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Department',
+        required: false
+    }],
     time_changed: {
         type: Date,
         default: Date.now,

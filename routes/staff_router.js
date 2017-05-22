@@ -27,7 +27,9 @@ router.get('/:_id', function(req, res){
 })
 
 router.post('/', function(req, res){
-    var staff = req.body;
+    var staff = req.body.employee;
+    console.log(staff);
+    // console.log(staff.employee);
     Staff.addStaff(staff, function(err, staff){
         if(err){
             throw err;
