@@ -6,17 +6,17 @@ var router = express.Router();
 router.get('/', function(req, res){
     Background.getBackgrounds(function(err, backgrounds){
         if(err)
-            throw err;
-        res.json({"data":backgrounds});
+            res.json({"data":err.message, "success": false});
+        res.json({"data":backgrounds, "success":true});
     });
 })
 
 router.get('/:_id', function(req, res){
     Background.getBackgroundById(req.params._id, function(err, background){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data": branch});
+        res.json({"data": branch, "success":true});
     });
 })
 
@@ -24,9 +24,9 @@ router.post('/', function(req, res){
     var background = req.body;
     Background.addBackground(background, function(err, background){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data":background});
+        res.json({"data":background, "success":true});
     });
 })
 
@@ -36,9 +36,10 @@ router.put('/:_id', function(req, res){
 
     Assignment.updateAssignment(id, assignment, {}, function(err, assignment){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data": assignment});
+
+        res.json({"data": assignment, "success":true});
     })
 })
 

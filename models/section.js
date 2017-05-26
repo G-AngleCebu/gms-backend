@@ -66,6 +66,7 @@ module.exports.updateSection = function(id, newSection, options, callback){
             name: 'eunice'
         }
     })
+    delete newSection['versions'];
     var update = {$set: newSection, $push: {versions: v}};
     Section.update(query, update, options, callback);
 }

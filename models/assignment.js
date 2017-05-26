@@ -62,7 +62,9 @@ module.exports.updateAssignment = function(id, newAssignment, options, callback)
             _id: '590ad89e019f941b14e589d9',
             name: 'eunice'
         }
-    }
+    }  
+
+    delete newAssignment['versions'];
 
     var update = {$set: newAssignment, $push: {versions: v}};
     Assignment.update(query, update, options, callback);

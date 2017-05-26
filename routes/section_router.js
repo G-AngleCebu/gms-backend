@@ -6,40 +6,40 @@ var router = express.Router();
 router.get('/', function(req, res){
     Section.getSections(function(err, sections){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data":sections});
+        res.json({"data":sections, "success":true});
     });
 });
 
 router.get('/:_id', function(req, res){
     Section.getSectionById(req.params._id, function(err, section){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data":section});
+        res.json({"data":section, "success":true});
     });
 })
 
 router.post('/', function(req, res){
-    var section = req.body;
+    var section = req.body.section;
     Section.addSection(section, function(err, section){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data": section});
+        res.json({"data": section, "success":true});
     });
     
 })
 
 router.put('/:_id', function(req, res){
     var id = req.params._id;
-    var section = req.body;
+    var section = req.body.section;
     Section.updateSection(id, section, {}, function(err, section){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data":section});
+        res.json({"data":section, "success":true});
     });
 })
 

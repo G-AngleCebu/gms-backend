@@ -6,16 +6,18 @@ var router = express.Router();
 router.get('/', function(res, req){
     TypeOfWork.getTypesOfWork(function(err, types){
         if(err)
-            throw err;
-        res.json({"data": types});
+            res.json({"data":err.message, "success": false});
+
+        res.json({"data": types, "success":true});
     });
 })
 
 router.get('/:_id', function(req, res){
     TypeOfWork.getTypeOfWorkById(req.params._id, function(err,type){
         if(err)
-            throw err;
-        res.json({"data": type});
+            res.json({"data":err.message, "success": false});
+
+        res.json({"data": type, "success":true});
     });
 })
 
@@ -23,8 +25,9 @@ router.post('/', function(req, res){
     var typeofwork = req.body;
     TypeOfWork.addTypeOfWork(typeofwork, function(err, typeofwork){
         if(err)
-            throw err;
-        res.json({"data": typeofwork});
+            res.json({"data":err.message, "success": false});
+
+        res.json({"data": typeofwork, "success":true});
     });
 })
 
@@ -34,8 +37,9 @@ router.put('/:_id', function(req, res){
 
     TypeOfWork.updateTypeOfWork(id, typeofwork, {}, function(err, typeofwork){
         if(err)
-            throw err;
-        res.json({"data": typeofwork});
+            res.json({"data":err.message, "success": false});
+
+        res.json({"data": typeofwork, "success":true});
     });
 })
 

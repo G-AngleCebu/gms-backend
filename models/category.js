@@ -73,6 +73,7 @@ module.exports.updateCategory = function(id, newCategory, options, callback){
             name: 'eunice'
         }
     };
+    delete newCategory['versions'];
     var update = {$set: newCategory, $push: {versions: v}};
     Category.update(query, update, options, callback);
 }     

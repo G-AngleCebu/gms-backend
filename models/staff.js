@@ -7,22 +7,27 @@ var Position = require('./position');
 var staffSchema = mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     birth: {
         type: Date,
+        required: true
     },
     gender: {
-        type: String
+        type: String,
+        required: true
     },
     blood: {
         type: String
     },
     post_1: {
         type: String,
+        required: true
     },
     address_1: {
         type: String,
+        required: true
     },
     post_2: {
         type: String,
@@ -40,11 +45,13 @@ var staffSchema = mongoose.Schema({
         type: String
     },
     email_mobile: {
-        type: String
+        type: String,
+        required: true
     },
     email_pc: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     commuting_route: {
         type: String
@@ -69,10 +76,12 @@ var staffSchema = mongoose.Schema({
     },
     permit_level: {
         type: Number,
+        required: true,
+        default: 1
     },
     password: {
-        type: Number
-        // required: true
+        type: Number,
+        required: true
     },
     hourly_wage: {
         type: Number,
@@ -199,7 +208,7 @@ module.exports.addStaff = function(staff, callback){
     });
     var populateQuery = [{path:'sections', model: 'Section'}, {path: 'departments', model: 'Department'}, {path: 'branches', model: 'Branch'}, {path: 'positions', model: 'Position'}];
     mongoose.model('Staff').populate(newStaff, populateQuery, function(err, staff){
-        console.log(staff);
+        // console.log(staff);
     })
     newStaff.save(callback);
 
@@ -239,15 +248,13 @@ module.exports.updateStaff = function(id, newStaff, options, callback){
         positions: newStaff.positions,
         departments: newStaff.departments,
         time_changed: Date.now(),
-        staff_maker: {
-            _id: '591a667ec9540eb1995be1e6',
-        }
     });
-    console.log(v);
+    delete newStaff['versions'];
     var populateQuery = [{path:'sections', model: 'Section'}, {path: 'departments', model: 'Department'}, {path: 'branches', model: 'Branch'}, {path: 'positions', model: 'Position'}];
 
     mongoose.model('Staff').populate(newStaff, populateQuery, function(err, staff){
         var update = {$set: newStaff, $push: {versions: v}};
+        console.log(update);
         Staff.update(query, update, options, callback);
     });
 

@@ -62,7 +62,7 @@ module.exports.updatePosition = function(id, newPosition, options, callback){
             name: 'eunice'
         }
     });
-
+    delete newPosition['versions'];
     var update = {$set: newPosition, $push: {versions: v}};
     Position.update(query, update, options, callback);
 }

@@ -10,18 +10,18 @@ router.get('/', function(req, res){
 router.get('/', function(req, res){
     CurrentStatus.getCurrentStatuses(function(err, currentStatus){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data":currentStatus});
+        res.json({"data":currentStatus, "success":true});
     });
 })
 
 router.get('/:_id', function(req, res){
     CurrentStatus.getCurrentStatusById(req.params._id, function(err, currentStatus){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data":currentStatus});
+        res.json({"data":currentStatus, "success":true});
     });
 })
 
@@ -29,9 +29,9 @@ router.post('/', function(req, res){
     var cur = req.body;
     CurrentStatus.addCurrentStatus(cur, function(err, cur){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data":cur});
+        res.json({"data":cur, "success":true});
     });
 })
 
@@ -40,9 +40,9 @@ router.put('/:_id', function(req, res){
     var cur = req.body;
     CurrentStatus.updateCurrentStatus(id, cur, {}, function(err, cur){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data": cur});
+        res.json({"data": cur, "success":true});
     });
 })
 

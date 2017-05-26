@@ -65,6 +65,7 @@ module.exports.updateTypeOfWork = function(id, newTypeofWork, options, callback)
             name: 'eunice'
         }
     }
+    delete newTypeofWork['versions'];
     var update = {$set: newTypeofWork, $push:{versions: v}};
     TypeOfWork.update(query, update, options, callback);
 }

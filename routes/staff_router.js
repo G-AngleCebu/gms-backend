@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var ObjectId = require('mongoose').Types.ObjectId;
 
 router.use(function timeLog(req, res, next){
     console.log("Time: ", Date.now());
@@ -11,42 +12,48 @@ router.use(function timeLog(req, res, next){
 router.get('/', function(req, res){
     Staff.getStaffs(function(err, staffs){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});            
         }
-        res.json({'data': staffs});
+        res.json({'data': staffs, "success":true});
     });
 })
 
 router.get('/:_id', function(req, res){
-    Staff.getStaffById(req.params._id, function(err, staff){
+    var id = req.params._id;
+    if(ObjectId.isValid(id)){
+        Staff.getStaffById(id, function(err, staff){
             if(err){
-                throw err;
+                console.log(err);
+                res.json({"data":null, "success": false, "message":err.message});                
             }
-            res.json({'data': staff});
-    });
-})
+                res.json({'data': staff});
+        });
+    }else{
+        res.json({"data":null})
+    }
+    
+});
 
 router.post('/', function(req, res){
     var staff = req.body.employee;
-    console.log(staff);
-    // console.log(staff.employee);
     Staff.addStaff(staff, function(err, staff){
         if(err){
-            throw err;
+            console.log(err);
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data":staff});
-    });
+        res.json({"data":staff, "success":true});
+    });    
 })
 
 router.put('/:_id', function(req, res){
     var id = req.params._id;
-    var staff = req.body;
+    var staff = req.body.employee;
     
     Staff.updateStaff(id, staff, {}, function(err, staff){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data":staff});
+        res.json({"data":staff, "success":true});
     });
 })
 
@@ -55,8 +62,9 @@ router.delete('/:_id', function(req, res){
 
     Staff.deleteStaff(id, function(err){
         if(err)
-            throw err;
-        res.json("Success!");
+            res.json({"data":err.message, "success": false});
+            
+        res.json({"success": true});
     })
 })
 

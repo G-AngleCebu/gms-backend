@@ -8,40 +8,40 @@ var router = express.Router();
 router.get('/', function(req, res){
     Branch.getBranches(function(err, branches){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data": branches});
+        res.json({"data": branches, "success":true});
     });
 });
 
 router.get('/:_id', function(req, res){
     Branch.getBranchById(req.params._id, function(err, branch){
             if(err){
-                throw err;
+                res.json({"data":err.message, "success": false});
             }
-            res.json({"data": branch});
+            res.json({"data": branch, "success":true});
     });
 });
 
 router.post('/', function(req, res){
-    var branch = req.body;
+    var branch = req.body.branch;
     Branch.addBranch(branch, function(err, branch){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data": branch});
+        res.json({"data": branch, "success":true});
     });
 });
 
 router.put('/:_id', function(req, res){
     var id = req.params._id;
-    var branch = req.body;
+    var branch = req.body.branch;
     
     Branch.updateBranch(id, branch, {}, function(err, branch){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data": branch});
+        res.json({"data": branch, "success":true});
     });
 });
 
@@ -50,8 +50,8 @@ router.delete('/:_id', function(req, res){
     
     Branch.deleteBranch(id, function(err){
         if(err)
-            throw err;
-        res.json({"data": "success"});
+            res.json({"data":err.message, "success": false});
+        res.json({"success": true});
     });
 })
 module.exports = router;

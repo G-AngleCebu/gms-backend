@@ -67,6 +67,7 @@ module.exports.updateDepartment = function(id, newDepartment, options, callback)
             name: 'eunice'
         }
     }
+    delete newDepartment['versions'];
     var update = {$set: newDepartment, $push: {versions: v}};
     Department.update(query, update, options, callback);
 }

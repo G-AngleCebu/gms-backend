@@ -62,7 +62,7 @@ module.exports.updateBranch = function(id, newBranch, options, callback){
             name: 'eunice'
         }
     }
-
+    delete newBranch['versions'];
     var update = {$set: newBranch, $push: {versions: v}};
     Branch.update(query, update, options, callback);
 }

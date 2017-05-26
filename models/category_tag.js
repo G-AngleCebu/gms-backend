@@ -73,6 +73,8 @@ module.exports.updateCategoryTag = function(id, newCategoryTag, options, callbac
             name: 'eunice'
         }
     };
+
+    delete newCategoryTag['versions'];
     var update = {$set: newCategoryTag, $push: {versions: v}};
     Category_tag.update(query, update, options, callback);
 }

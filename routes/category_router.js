@@ -7,18 +7,18 @@ var router = express.Router();
 router.get('/', function(req, res){
     Category.getCategories(function(err, categories){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data":categories});
+        res.json({"data":categories, "success":true});
     });
 });
 
 router.get('/:_id', function(req, res){
     Category.getCategoryById(req.params._id, function(err, category){
             if(err){
-                throw err;
+                res.json({"data":err.message, "success": false});
             }
-            res.json({"data": category});
+            res.json({"data": category, "success":true});
     });
 });
 
@@ -26,9 +26,9 @@ router.post('/', function(req, res){
     var category = req.body;
     Category.addCategory(category, function(err, category){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data": category});
+        res.json({"data": category, "success":true});
     });
 });
 
@@ -38,9 +38,9 @@ router.put('/:_id', function(req, res){
     
     Category.updateCategory(id, category, {}, function(err, category){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data": category});
+        res.json({"data": category, "success":true});
     });
 });
 

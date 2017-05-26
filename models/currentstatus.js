@@ -64,6 +64,7 @@ module.exports.updateCurrentStatus = function(id, newCurrentStatus, options, cal
             name: 'eunice'
         }
     }
+    delete newCurrentStatus['versions'];
 
     var update = {$set: newCurrentStatus, $push: {versions: v}};
     CurrentStatus.update(query, update, options, callback);

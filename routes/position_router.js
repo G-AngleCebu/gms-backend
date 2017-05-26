@@ -7,9 +7,9 @@ var router = express.Router();
 router.get('/', function(req, res){
     Position.getPositions(function(err, positions){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data":positions});
+        res.json({"data":positions, "success":true});
     });
 });
 
@@ -17,18 +17,18 @@ router.post('/', function(req, res){
     var position = req.body;
     Position.addPosition(position, function(err, position){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data":position});
+        res.json({"data":position, "success":true});
     });
 });
 
 router.get('/:_id', function(req, res){
     Position.getPositionById(req.params._id, function(err, position){
             if(err){
-                throw err;
+                res.json({"data":err.message, "success": false});
             }
-            res.json({"data":position});
+            res.json({"data":position, "success":true});
     });
 });
 
@@ -38,9 +38,9 @@ router.put('/:_id', function(req, res){
     
     Position.updatePosition(id, position, {}, function(err, position){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data":position});
+        res.json({"data":position, "success":true});
     });
 });
 

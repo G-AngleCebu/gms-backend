@@ -64,6 +64,7 @@ module.exports.updateTypeOfOutsourced = function(id, newTypeOfOutsourced, option
             name: 'eunice'
         }
     };
+    delete newTypeOfOutsourced['versions'];
     var update = {$set: newTypeOfOutsourced, $push: {versions: v}};
     TypeOfOutsourced.update(query, update, options, callback);
 }

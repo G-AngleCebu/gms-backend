@@ -6,16 +6,16 @@ var router = express.Router();
 router.get('/', function(req, res){
     TypeOfOutsourced.getTypesOfOutsourced(function(err, types){
         if(err)
-            throw err;
-        res.json({"data":types})
+            res.json({"data":err.message, "success": false});
+        res.json({"data":types, "success":true})
     });    
 });
 
 router.get('/:_id', function(req, res){
     TypeOfOutsourced.getTypeOfOutsourcedById(req.params._id, function(err, type){
         if(err)
-            throw err;
-        res.json({"data": type});
+            res.json({"data":err.message, "success": false});
+        res.json({"data": type, "success":true});
     });
 });
 
@@ -23,9 +23,9 @@ router.post('/', function(req, res){
     var typeofoutsourced = req.body;
     TypeOfOutsourced.addTypeOfOutsourced(typeofoutsourced, function(err, typeofoutsourced){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data":typeofoutsourced});
+        res.json({"data":typeofoutsourced, "success":true});
     });
 })
 
@@ -35,9 +35,9 @@ router.put('/:_id', function(req, res){
 
     TypeOfOutsourced.updateTypeOfOutsourced(id, typeofoutsourced, {}, function(err, typeofoutsourced){
         if(err){
-            throw err;
+            res.json({"data":err.message, "success": false});
         }
-        res.json({"data": typeofoutsourced});
+        res.json({"data": typeofoutsourced, "success":true});
     })
 })
 

@@ -63,6 +63,7 @@ module.exports.updateBackground = function(id, newBackground, options, callback)
             name: 'eunice'
         }
     };
+    delete newBackground['versions'];
 
     var update = {$set: newBackground, $push: {versions: v}};
     Background.update(query, update, options, callback);
