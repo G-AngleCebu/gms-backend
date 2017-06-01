@@ -35,7 +35,6 @@ module.exports.getPositionById = function(id, callback){
 module.exports.addPosition = function(position, callback){
     var v = new position_version({
         name: position.name,
-        staff_members: position.staff_members,
         staff_maker: {
             _id: '590ad89e019f941b14e589d9',
             name: 'eunice'
@@ -44,7 +43,6 @@ module.exports.addPosition = function(position, callback){
 
     var newPosition = new Position({
         name: position.name,
-        staff_members: position.staff_members,
         versions: [v]
     });
     newPosition.save(callback);
@@ -55,7 +53,6 @@ module.exports.updatePosition = function(id, newPosition, options, callback){
     var query = {_id: id};
     var v = new position_version({
         name: newPosition.name,
-        staff_members: newPosition.staff_members,
         time_changed: Date.now(),
         staff_maker: {
             _id: '590ad89e019f941b14e589d9',

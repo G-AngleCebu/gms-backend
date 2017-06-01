@@ -60,7 +60,6 @@ module.exports.updateDepartment = function(id, newDepartment, options, callback)
     var v ={
         name: newDepartment.name,
         remark: newDepartment.remark,
-        staff_members: newDepartment.staff_members,
         time_changed: Date.now(),
         staff_maker: {
             _id: '590ad89e019f941b14e589d9',

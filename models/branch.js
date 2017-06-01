@@ -55,7 +55,6 @@ module.exports.updateBranch = function(id, newBranch, options, callback){
     var query = {_id: id};
     var v = {
         name: newBranch.name,
-        staff_members: newBranch.staff_members,
         time_changed: Date.now(),
         staff_maker: {
             _id: '590ad89e019f941b14e589d9',
